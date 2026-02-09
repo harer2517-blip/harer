@@ -1,0 +1,406 @@
+ 
+
+/* أو خلفية حمراء ناعمة */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+       #571c24,   /* أحمر داكن */
+        #68242d,#7e2934
+    );
+    backdrop-filter: blur(5px);
+    z-index: -2;
+}
+
+/* إزالة التأثيرات المعقدة وإبقاء الخلفية ناعمة فقط */
+.particles {
+    display: none; /* إخفاء التأثيرات الجسيمية */
+}
+
+/* Main Container - تبسيط الحاوية */
+.splash-container {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Header - تبسيط الهيدر */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* إزالة الدائرة والآيكون القديم */
+.logo-circle {
+    display: none; /* إخفاء الدائرة القديمة */
+}
+
+.logo-icon {
+    display: none; /* إخفاء الآيكون القديم */
+}
+
+.logo-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f8f5f0; /* اللون الأساسي فقط بدون تدرج */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+/* Main Content - تبسيط المحتوى */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+    height: calc(100vh - 300px);
+    justify-content: center;
+}
+
+/* Image Section - اللوجو فقط بدون إطارات */
+.image-section {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.image-frame {
+    position: relative;
+    overflow: visible;
+    border-radius: 0;
+    transform: none;
+    transition: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+}
+
+.image-frame:hover {
+    transform: none;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* لضبط الصورة داخل المساحة */
+    display: block;
+    filter: none; /* إزالة التعتيم */
+    transition: none;
+    animation: gentlePulse 3s ease-in-out infinite;
+}
+
+/* نبض خفيف جداً للصورة */
+@keyframes gentlePulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.02);
+        opacity: 0.95;
+    }
+}
+
+/* إزالة التأثيرات الزائدة على الصورة */
+.image-overlay {
+    display: none; /* إخفاء الطبقة الشفافة فوق الصورة */
+}
+
+/* Text Section - تبسيط النصوص */
+.text-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.title-line {
+    display: block;
+    color: #f8f5f0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    animation: simpleFadeIn 0.8s ease-out;
+}
+
+.title-line:last-child {
+    animation-delay: 0.2s;
+}
+
+@keyframes simpleFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    text-align: center;
+    color: #f8f5f0;
+    max-width: 500px;
+}
+
+/* Call to Action - تبسيط الأزرار */
+.button-section {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 0 1rem;
+}
+
+.visit-button {
+    position: relative;
+    background: linear-gradient(135deg, #f8f5f0, #dfd9cf);
+    border: none;
+    padding: 1.25rem 3rem;
+    border-radius: 50px;
+    color: #571c24;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(87, 28, 36, 0.3);
+    display: inline-block;
+    text-decoration: none;
+    min-width: 200px;
+}
+
+.visit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(87, 28, 36, 0.4);
+    background: linear-gradient(135deg, #752a34, #8b3a45);
+}
+
+.button-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* إزالة التأثيرات المعقدة على الزر */
+.button-effect {
+    display: none;
+}
+
+.button-icon {
+    transition: transform 0.3s ease;
+}
+
+.visit-button:hover .button-icon {
+    transform: translateX(-5px);
+}
+
+.button-hint {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+}
+
+.countdown {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    background: rgba(87, 28, 36, 0.1);
+    border-radius: 50%;
+    font-weight: bold;
+    color: #571c24;
+    font-size: 0.9rem;
+}
+
+/* Footer - تبسيط الفوتر */
+.footer {
+    margin-top: auto;
+    padding: 1.5rem 1rem;
+    border-top: 1px solid rgba(87, 28, 36, 0.1);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.footer-text {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.footer-highlight {
+    color: #571c24;
+    font-weight: 600;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(87, 28, 36, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #571c24;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.social-icon:hover {
+    background: rgba(87, 28, 36, 0.2);
+    transform: translateY(-2px);
+    border-color: rgba(87, 28, 36, 0.3);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 2rem;
+    }
+    
+    .image-section {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .welcome-text {
+        font-size: 1.1rem;
+    }
+    
+    .visit-button {
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 1.8rem;
+    }
+    
+    .image-section {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .welcome-title {
+        font-size: 1.8rem;
+    }
+    
+    .visit-button {
+        padding: 0.9rem 2rem;
+        font-size: 1.1rem;
+        min-width: 160px;
+    }
+}
+
+/* تأثير جديد للصورة عند التحميل */
+@keyframes logoAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.main-image {
+    animation: logoAppear 1.5s ease-out forwards;
+}
+
+/* تأثير خفيف للظهور التدريجي */
+.fade-in-element {
+    animation: fadeInElement 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInElement {
+    to {
+        opacity: 1;
+    }
+}
+
+/* إضافة هذا الكود لتفعيل التأثير التدريجي */
+.welcome-title {
+    animation: fadeInElement 0.8s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+.welcome-text {
+    animation: fadeInElement 0.8s ease-out 0.8s forwards;
+    opacity: 0;
+}
+
+.button-section {
+    animation: fadeInElement 0.8s ease-out 1.1s forwards;
+    opacity: 0;
+}
+
+.footer {
+    animation: fadeInElement 0.8s ease-out 1.4s forwards;
+    opacity: 0;
+}
