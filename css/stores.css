@@ -127,15 +127,15 @@
 /* للجوال */
 @media (max-width: 768px) {
     .store-card {
-        flex: 1 1 calc(25% - 10px); /* 50% مع حساب المسافة */
-        min-width: 25%; /* الحد الأدنى 45% */
+        flex: 1 1 calc(10% - 10px); /* 50% مع حساب المسافة */
+        min-width: 10%; /* الحد الأدنى 45% */
     }
 }
 
 /* للشاشات الصغيرة جدًا */
-@media (max-width: 480px) {
+@media (max-width: 380px) {
     .store-card {
-        flex: 1 1 100%; /* عمود كامل */
+        flex: 2 2 100%; /* عمود كامل */
     }
 }
 .store-card:hover {

@@ -123,10 +123,10 @@ p {
 }
 
 .brand-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 100px;
+    height: 50px;
+    border-radius: 0%;
+    object-fit: fill;
 }
 
 .navbar-nav {
