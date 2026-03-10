@@ -330,7 +330,7 @@ function showCartNotification() {
     
     if (totalItems > 0) {
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        message = `لديك ${totalItems} منتج في السلة - المجموع: ${totalPrice.toFixed(2)} د.أ`;
+        message = `لديك ${totalItems} منتج في السلة - المجموع: ${totalPrice.toFixed(2)} ل.س`;
         type = 'success';
     }
     

@@ -297,10 +297,10 @@ function displayProducts(products) {
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h4 class="text-danger mb-0">${finalPrice} د.أ</h4>
+                                    <h4 class="text-danger mb-0">${finalPrice} ل.س</h4>
                                     ${product.discount > 0 ? `
                                         <small class="text-muted text-decoration-line-through">
-                                            ${product.price.toFixed(2)} د.أ
+                                            ${product.price.toFixed(2)} ل.س
                                         </small>
                                     ` : ''}
                                 </div>
@@ -419,27 +419,15 @@ window.openProductDialog = function(productId) {
                                 <!-- السعر -->
                                 <div class="mb-4 p-3" style="background: #f8f9fa; border-radius: 12px;">
                                     <div class="d-flex align-items-baseline gap-3 flex-wrap">
-                                        <span class="display-6 fw-bold" style="color: #571c24;">${finalPrice} د.أ</span>
+                                        <span class="display-6 fw-bold" style="color: #571c24;">${finalPrice} ل.س</span>
                                         ${product.discount > 0 ? `
-                                            <span class="text-muted text-decoration-line-through">${product.price.toFixed(2)} د.أ</span>
+                                            <span class="text-muted text-decoration-line-through">${product.price.toFixed(2)} ل.س</span>
                                             <span class="badge bg-danger">خصم ${product.discount}%</span>
                                         ` : ''}
                                     </div>
                                 </div>
                                 
-                                <!-- المخزون -->
-                                <div class="mb-4">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <i class="fas fa-boxes" style="color: #571c24;"></i>
-                                        <span>المخزون المتوفر: <strong>${product.stock || 0}</strong></span>
-                                    </div>
-                                    <div class="progress" style="height: 10px; border-radius: 5px;">
-                                        <div class="progress-bar bg-${product.stock > 10 ? 'success' : product.stock > 0 ? 'warning' : 'danger'}" 
-                                             role="progressbar" 
-                                             style="width: ${Math.min((product.stock / 50) * 100, 100)}%;"></div>
-                                    </div>
-                                </div>
-                                
+                               
                                 <!-- الوصف -->
                                 <div class="mb-4">
                                     <h6 style="color: #571c24; font-weight: bold; margin-bottom: 10px;">

@@ -612,7 +612,7 @@
                                 ${p.code ? `<br><small style="color:#888;">كود: ${p.code}</small>` : ''}
                                 ${p.description ? `<br><small>${p.description.substring(0,30)}...</small>` : ''}
                             </td>
-                            <td>${p.price || 0} د.أ</td>
+                            <td>${p.price || 0} ل.س</td>
                             <td><span class="badge badge-info">${p.category || 'غير مصنف'}</span></td>
                             <td><span class="badge ${stockClass}">${p.stock || 0} (${stockText})</span></td>
                             <td><span class="badge" style="background:#e8f4f8;">${p.store || 'غير محدد'}</span></td>
@@ -1106,7 +1106,7 @@
                             <strong>${p.name || 'غير مسمى'}</strong>
                             ${p.code ? `<br><small style="color:#888;">كود: ${p.code}</small>` : ''}
                         </td>
-                        <td>${p.price || 0} د.أ</td>
+                        <td>${p.price || 0} ل.س</td>
                         <td><span class="badge badge-info">${p.category || 'غير مصنف'}</span></td>
                         <td><span class="badge ${stockClass}">${p.stock || 0} (${stockText})</span></td>
                         <td><span class="badge" style="background:#e8f4f8;">${p.store || 'غير محدد'}</span></td>
