@@ -21,12 +21,7 @@
     opacity: 0.1;
 }
 
-.header-content {
-  
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
+
 
 .breadcrumb {
     display: flex;
