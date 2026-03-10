@@ -846,7 +846,7 @@
     top: 15px;
     left: 15px;
     background: white;
-    padding: 10px 18px;
+    padding: 10px 8px;
     border-radius: 60px;
     display: flex;
     flex-direction: column;
@@ -873,7 +873,8 @@
 
 /* Category Body */
 .category-body {
-    padding: 10px;
+    padding: 15px 18px;
+  
     flex: 1;
     background: white;
 }
@@ -882,7 +883,7 @@
     font-size: 24px;
     font-weight: 800;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     text-align: center;
     padding-bottom: 15px;
     border-bottom: 2px dashed rgba(87, 28, 36, 0.2);
@@ -902,7 +903,7 @@
     font-size: 15px;
     padding: 8px 12px;
     background: #f8f9fa;
-    border-radius: 12px;
+    border-radius: 16px;
     transition: all 0.3s ease;
 }
 
@@ -914,23 +915,25 @@
 
 /* Category Footer */
 .category-footer {
-    padding: 0 25px 25px;
+    padding: 15 5px 25px;
     background: white;
 }
 
 .category-btn {
+    top: 10px;
+    bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 15px 20px;
+    padding: 5 5px 0px;
     background: linear-gradient(135deg, #f8f9fa, #ffffff);
     border-radius: 16px;
     color: #333;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 200;
     transition: all 0.3s ease;
-    border: 2px solid rgba(87, 28, 36, 0.1);
+    border: 5px solid rgba(87, 28, 36, 0.1);
 }
 
 .category-btn:hover {
