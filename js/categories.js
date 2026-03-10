@@ -258,10 +258,7 @@ function createCategoryCardHTML(category, store) {
                                 <i class="fas fa-cubes"></i>
                                 <span>${category.count} منتج متوفر</span>
                             </div>
-                            <div class="stat-item">
-                                <i class="fas fa-store"></i>
-                                <span>${storeDisplayName}</span>
-                            </div>
+                            
                         </div>
                     </div>
                     
