@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - إدارة حرير</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Bootstrap & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #FFD700;
+            --accent-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .auth-header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .auth-header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+        
+        .auth-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--primary-color);
+        }
+        
+        .auth-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+        
+        .form-label {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .input-group-text {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .btn-auth {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+        }
+        
+        .btn-google {
+            background: white;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+        
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: #ccc;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        
+        .auth-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-danger {
+            background: #ffe6e6;
+            color: #c00;
+            border-left: 4px solid #c00;
+        }
+        
+        .alert-success {
+            background: #e6f4e6;
+            color: #2d7d2d;
+            border-left: 4px solid #2d7d2d;
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <!-- تسجيل الدخول -->
+        <div id="loginSection">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h1>تسجيل الدخول</h1>
+                <p>مرحباً بك في لوحة إدارة حرير</p>
+            </div>
+            
+            <div class="auth-body">
+                <div id="loginMessage" style="display: none;"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" 
+                                   id="loginEmail" 
+                                   class="form-control" 
+                                   placeholder="example@email.com"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">كلمة المرور</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" 
+                                   id="loginPassword" 
+                                   class="form-control" 
+                                   placeholder="••••••••"
+                                   required>
+                            <span class="input-group-text password-toggle" id="toggleLoginPassword">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            تذكرني
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth" id="loginBtn">
+                        <span id="loginText">تسجيل الدخول</span>
+                        <span id="loginLoading" style="display: none;">
+                            <div class="loading"></div>
+                        </span>
+                    </button>
+                    
+                    <div class="text-center mt-3">
+                        <a href="#" id="forgotPassword" class="auth-link">نسيت كلمة المرور؟</a>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p>ليس لديك حساب؟ <a href="#" id="showRegister" class="auth-link">إنشاء حساب جديد</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- التسجيل -->
+        <div id="registerSection" style="display: none;">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1>إنشاء حساب جديد</h1>
+                <p>انضم إلى فريق إدارة حرير</p>
+            </div>
+            
+            <div class="auth-body">
+                <div id="registerMessage" style="display: none;"></div>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">الاسم الكامل</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" 
+                                   id="registerName" 
+                                   class="form-control" 
+                                   placeholder="أدخل اسمك الكامل"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" 
+                                   id="registerEmail" 
+                                   class="form-control" 
+                                   placeholder="example@email.com"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">كلمة المرور</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" 
+                                   id="registerPassword" 
+                                   class="form-control" 
+                                   placeholder="••••••••"
+                                   minlength="6"
+                                   required>
+                            <span class="input-group-text password-toggle" id="toggleRegisterPassword">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        <small class="text-muted">يجب أن تحتوي على 6 أحرف على الأقل</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">تأكيد كلمة المرور</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" 
+                                   id="registerConfirmPassword" 
+                                   class="form-control" 
+                                   placeholder="••••••••"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="acceptTerms" required>
+                        <label class="form-check-label" for="acceptTerms">
+                            أوافق على <a href="#" class="auth-link">الشروط والأحكام</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth" id="registerBtn">
+                        <span id="registerText">إنشاء حساب</span>
+                        <span id="registerLoading" style="display: none;">
+                            <div class="loading"></div>
+                        </span>
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                        <p>لديك حساب بالفعل؟ <a href="#" id="showLogin" class="auth-link">تسجيل الدخول</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- إعادة تعيين كلمة المرور -->
+        <div id="forgotSection" style="display: none;">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h1>إعادة تعيين كلمة المرور</h1>
+                <p>أدخل بريدك الإلكتروني لإرسال رابط التعيين</p>
+            </div>
+            
+            <div class="auth-body">
+                <div id="forgotMessage" style="display: none;"></div>
+                
+                <form id="forgotForm">
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" 
+                                   id="forgotEmail" 
+                                   class="form-control" 
+                                   placeholder="example@email.com"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth" id="forgotBtn">
+                        <span id="forgotText">إرسال رابط التعيين</span>
+                        <span id="forgotLoading" style="display: none;">
+                            <div class="loading"></div>
+                        </span>
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                        <a href="#" id="showLoginFromForgot" class="auth-link">العودة لتسجيل الدخول</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+</body>
+</html>

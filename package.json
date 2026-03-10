@@ -1,0 +1,21 @@
+{
+  "name": "harir-store",
+  "version": "1.0.0",
+  "description": "متجر حرير - منتجات الحجاب وأطقم الصلاة الفاخرة",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=index.html",
+    "dev": "live-server --port=3000 --open=index.html --watch=."
+  },
+  "keywords": [
+    "ecommerce",
+    "islamic-products",
+    "hijab",
+    "prayer-sets"
+  ],
+  "author": "Harir Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  }
+}
