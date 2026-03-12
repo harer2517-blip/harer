@@ -136,7 +136,7 @@ p {
 .nav-link {
     color: var(--light-color) !important;
     font-weight: 500;
-    padding: 0.5rem 1rem !important;
+    padding: 5.5rem 1rem !important;
     border-radius: var(--border-radius-sm);
     transition: var(--transition-fast);
     position: relative;
@@ -161,7 +161,7 @@ p {
 
 .navbar-toggler {
     border: none;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.5rem;
 }
 
 .navbar-toggler:focus {

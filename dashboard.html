@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>داشبورد حرير</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -75,6 +76,7 @@
             background: white;
             box-shadow: -2px 0 10px rgba(0,0,0,0.05);
             padding: 20px 0;
+            transition: all 0.3s ease;
         }
         .menu {
             list-style: none;
@@ -338,6 +340,270 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             z-index: 10;
+        }
+
+        /* ========== التصميم المتجاوب للجوال ========== */
+        @media (max-width: 768px) {
+            /* الهيدر */
+            .header {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+            }
+            .logo {
+                font-size: 20px;
+            }
+            .user-menu {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 14px;
+            }
+            .user-menu span {
+                display: none; /* إخفاء النص الطويل */
+            }
+
+            /* الحاوية الرئيسية */
+            .container {
+                flex-direction: column;
+            }
+
+            /* القائمة الجانبية */
+            .sidebar {
+                width: 100%;
+                padding: 10px 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+                gap: 10px;
+            }
+            .menu-item {
+                padding: 12px 20px;
+                border-bottom: none;
+                border-radius: 8px;
+                white-space: nowrap;
+                background: #f8f9fa;
+            }
+            .menu-item.active {
+                background: #571c24;
+                color: white;
+                border-right: none;
+            }
+            .menu-item i {
+                font-size: 16px;
+            }
+
+            /* المحتوى الرئيسي */
+            .main-content {
+                padding: 15px;
+            }
+
+            /* رأس الصفحة */
+            .page-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            .page-title {
+                font-size: 20px;
+                text-align: center;
+            }
+            .page-header .btn-primary {
+                width: 100%;
+            }
+
+            /* الفلاتر */
+            .filters {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .filter-input, .filter-select {
+                width: 100%;
+                min-width: auto;
+            }
+            .filters .btn {
+                width: 100%;
+            }
+
+            /* الجدول */
+            .table-container {
+                margin: 10px -5px;
+                border-radius: 8px;
+            }
+            .data-table {
+                font-size: 13px;
+            }
+            .data-table th {
+                padding: 8px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+            .data-table td {
+                padding: 8px;
+            }
+            .data-table td:nth-child(2) {
+                min-width: 100px; /* عرض كافٍ للصور */
+            }
+
+            /* الصور المصغرة */
+            .product-images-mini {
+                max-width: 100px;
+            }
+            .product-img-mini {
+                width: 35px;
+                height: 35px;
+            }
+            .more-images-badge {
+                width: 35px;
+                height: 35px;
+                font-size: 10px;
+            }
+
+            /* أزرار الإجراءات */
+            .action-btn {
+                padding: 8px 12px;
+                margin: 2px;
+            }
+
+            /* النماذج */
+            .image-inputs-container {
+                max-height: 250px;
+            }
+            .image-input-row {
+                flex-wrap: wrap;
+            }
+            .image-input-row input {
+                width: calc(100% - 120px);
+                min-width: 150px;
+            }
+
+            /* المعرض */
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 8px;
+            }
+            .gallery-item img {
+                height: 100px;
+            }
+
+            /* الإحصائيات في لوحة التحكم */
+            [style*="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* شاشات صغيرة جداً */
+            .header {
+                padding: 10px;
+            }
+            .logo {
+                font-size: 18px;
+            }
+            .user-menu .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .menu-item {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .content-box {
+                padding: 15px;
+            }
+
+            /* تعديل عرض الجدول للشاشات الصغيرة جداً */
+            .data-table {
+                font-size: 12px;
+            }
+            .data-table th, .data-table td {
+                padding: 6px;
+            }
+
+            /* إخفاء بعض الأعمدة غير الضرورية في الشاشات الصغيرة */
+            .data-table td:nth-child(4), /* السعر */
+            .data-table th:nth-child(4) {
+                display: none;
+            }
+
+            /* إظهار الأعمدة المهمة فقط */
+            .data-table td:nth-child(1), /* الرقم */
+            .data-table td:nth-child(2), /* الصور */
+            .data-table td:nth-child(3), /* الاسم */
+            .data-table td:nth-child(5), /* التصنيف */
+            .data-table td:nth-child(8) { /* الإجراءات */
+                display: table-cell;
+            }
+
+            /* معرض الصور */
+            .modal-content {
+                padding: 15px;
+                width: 95%;
+            }
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* حقول الصور */
+            .image-input-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .image-input-row input {
+                width: 100%;
+            }
+            .image-preview {
+                width: 80px;
+                height: 80px;
+                margin: 5px auto;
+            }
+            .image-input-row button {
+                width: 100%;
+            }
+        }
+
+        /* تحسين اللمس للجوال */
+        @media (hover: none) and (pointer: coarse) {
+            .menu-item,
+            .btn,
+            .action-btn,
+            .tag,
+            .gallery-item {
+                cursor: default;
+                -webkit-tap-highlight-color: rgba(87, 28, 36, 0.3);
+            }
+            
+            .product-img-mini:hover {
+                transform: none; /* إلغاء تأثير التحويم على الجوال */
+            }
+            
+            .btn:active,
+            .action-btn:active,
+            .menu-item:active {
+                transform: scale(0.98);
+                opacity: 0.9;
+            }
+        }
+
+        /* تحسين التمرير */
+        .menu::-webkit-scrollbar {
+            height: 3px;
+        }
+        .menu::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .menu::-webkit-scrollbar-thumb {
+            background: #571c24;
+            border-radius: 3px;
         }
     </style>
 </head>

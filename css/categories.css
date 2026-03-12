@@ -1194,4 +1194,78 @@
     transform: scale(1.1) rotate(5deg);
     background: rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 0.5);
+}/* ===== Skeleton Loading Styles ===== */
+.skeleton-card {
+    pointer-events: none;
+}
+
+.skeleton-card .category-header.skeleton {
+    background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    min-height: 120px;
+}
+
+.skeleton-icon {
+    width: 40px;
+    height: 40px;
+    background: #d0d0d0;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background: #d0d0d0;
+    border-radius: 60px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-title {
+    height: 30px;
+    width: 70%;
+    margin: 0 auto 20px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-stats {
+    padding: 0 10px;
+}
+
+.skeleton-stat-item {
+    height: 50px;
+    background: #e0e0e0;
+    border-radius: 16px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-btn {
+    height: 50px;
+    background: #e0e0e0;
+    border-radius: 16px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* تحسين ظهور التصنيفات عند التحميل */
+.category-card {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.category-card[style*="display: none"] {
+    display: none;
 }
