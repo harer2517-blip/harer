@@ -355,3 +355,17 @@ function showErrorMessage(message) {
 export {
     sortCategoriesWithShalatsFirst
 };
+// ========== التحكم في زر الرجوع ==========
+window.addEventListener('popstate', function(event) {
+    // عندما يضغط المستخدم على زر الرجوع
+    if (currentStore) {
+        // إذا كان هناك متجر محدد، ارجع إلى صفحة المتاجر
+        window.location.href = 'stores.html';
+    }
+});
+
+// استبدال الحالة الحالية في التاريخ
+if (window.location.search.includes('store=')) {
+    // إذا كان هناك متجر في الرابط، نضيف حالة جديدة في التاريخ
+    history.replaceState({ page: 'categories', store: currentStore }, document.title, window.location.href);
+}
