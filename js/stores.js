@@ -4,47 +4,7 @@
  */
 
 // بيانات المتاجر مع التصنيفات الثابتة
-const storesData = {
-    tuka: {
-        name: 'التقى',
-        icon: 'fas fa-hands-praying',
-        description: 'متجر متخصص في أطقم الصلاة الفاخرة المصنوعة من أفضل أنواع الحرير والقطن، يجمع بين الجمال الروحي والأناقة.',
-        stats: {
-            categories: 5,
-            products: 50,
-            rating: 4.9
-        },
-        categories: [
-            { id: 'tuka_silk', name: 'شالات حرير', icon: 'fas fa-scarf', description: 'شالات صلاة مصنوعة من أجود أنواع الحرير الطبيعي' },
-            { id: 'tuka_chiffon', name: 'شالات شيفون', icon: 'fas fa-pray', description: 'شالات خفيفة الوزن تناسب جميع الفصول' },
-            { id: 'tuka_crepe', name: 'شالات كريب', icon: 'fas fa-star-of-david', description: 'شالات بملمس ناعم ومظهر أنيق' },
-            { id: 'tuka_jersey', name: 'شالات جيرسي', icon: 'fas fa-hands', description: 'شالات مريحة وسهلة الارتداء' },
-            { id: 'tuka_wool', name: 'شالات صوف', icon: 'fas fa-snowflake', description: 'شالات دافئة لفصل الشتاء' }
-        ],
-        featured: ['شالات حرير', 'شالات شيفون', 'شالات كريب']
-    },
-    samah: {
-        name: 'السماح',
-        icon: 'fas fa-star-and-crescent',
-        description: 'وجهتك المثالية للحجاب الفاخر والأناقة الإسلامية، نقدم أحدث صيحات الموضة مع الحفاظ على الهوية الإسلامية الأصيلة.',
-        stats: {
-            categories: 8,
-            products: 80,
-            rating: 4.8
-        },
-        categories: [
-            { id: 'samah_silk', name: 'جرابات حرير', icon: 'fas fa-hijab', description: 'حجاب مصنوع من الحرير الفاخر' },
-            { id: 'samah_cotton', name: 'جرابات قطن', icon: 'fas fa-tshirt', description: 'حجاب قطني مريح للارتداء اليومي' },
-            { id: 'samah_velvet', name: 'جرابات مخمل', icon: 'fas fa-crown', description: 'حجاب بملمس مخملي فاخر' },
-            { id: 'samah_embroidery', name: 'جرابات مطرزة', icon: 'fas fa-pen-nib', description: 'حجاب مزين بتطريزات يدوية فاخرة' },
-            { id: 'samah_print', name: 'جرابات مطبوعة', icon: 'fas fa-paint-brush', description: 'حجاب بأنماط وألوان مميزة' },
-            { id: 'samah_lace', name: 'جرابات دانتيل', icon: 'fas fa-lace', description: 'حجاب بتفاصيل دانتيل أنيقة' },
-            { id: 'samah_premium', name: 'جرابات فاخرة', icon: 'fas fa-gem', description: 'مجموعة خاصة من الحجاب الفاخر' },
-            { id: 'samah_travel', name: 'جرابات سفر', icon: 'fas fa-suitcase-rolling', description: 'حجاب عملي ومريح للسفر' }
-        ],
-        featured: ['جرابات حرير', 'جرابات قطن', 'جرابات مخمل']
-    }
-};
+
 
 // تهيئة الصفحة
 document.addEventListener('DOMContentLoaded', function() {
