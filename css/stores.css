@@ -94,38 +94,30 @@
     border-radius: 3px;
 }
 
-/* Stores Grid */
+/* Stores Grid - تعديل رئيسي هنا */
 .stores-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    max-width: 1000px;
+    grid-template-columns: repeat(2, 1fr); /* دايمًا كاردين جنب بعض */
+    gap: 20px;
+    max-width: 900px;
     margin: 0 auto 50px;
-    padding: 0 20px;
+    padding: 0 15px;
 }
 
-/* للشاشات الصغيرة */
-@media (max-width: 768px) {
+/* للشاشات الصغيرة جداً - نفس الشيء بس تصغير المسافات */
+@media (max-width: 480px) {
     .stores-grid {
-        gap: 20px;
-        padding: 0 15px;
+        gap: 12px; /* مسافة أقل بين الكروت */
+        padding: 0 10px;
     }
 }
 
-/* للشاشات الصغيرة جداً */
-@media (max-width: 580px) {
-    .stores-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-    }
-}
-
-/* Store Card */
+/* Store Card - تعديل لجعلها أصغر على الجوال */
 .store-card {
     background: white;
-    border-radius: 24px;
+    border-radius: 20px; /* تصغير الحواف قليلاً */
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(87, 28, 36, 0.1);
+    box-shadow: 0 8px 20px rgba(87, 28, 36, 0.1);
     transition: all 0.3s ease;
     text-decoration: none;
     color: inherit;
@@ -142,12 +134,12 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 6px;
+    height: 5px; /* تصغير الشريط */
     background: linear-gradient(90deg, #571c24, #8b3a3a, #571c24);
     z-index: 1;
 }
 
-/* تخصيص الشريط حسب المتجر - يمكنك إضافة كلاسات مختلفة إذا أردت ألوان مختلفة */
+/* تخصيص الشريط حسب المتجر */
 .store-card[data-store="samah"]::before {
     background: linear-gradient(90deg, #571c24, #a04545, #571c24);
 }
@@ -157,29 +149,35 @@
 }
 
 .store-card:hover::before {
-    height: 8px;
-    background: linear-gradient(90deg, #8b3a3a, #571c24, #8b3a3a);
+    height: 5px; /* نفس الحجم عند التحويم */
 }
 
 .store-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(87, 28, 36, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(87, 28, 36, 0.15);
     border-color: #8b3a3a;
 }
 
-/* Store Header */
+/* Store Header - تصغير للجوال */
 .store-header {
-    padding: 35px 20px 20px; /* زودت الـ padding من فوق عشان ما يتداخل مع الشريط */
+    padding: 25px 15px 15px;
     text-align: center;
     background: linear-gradient(180deg, #fff9f9, white);
 }
 
 .store-header img {
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     object-fit: contain;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .store-header img {
+        width: 70px;
+        height: 70px;
+    }
 }
 
 .store-card:hover .store-header img {
@@ -187,58 +185,105 @@
 }
 
 .store-title h3 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #571c24;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
+}
+
+@media (max-width: 480px) {
+    .store-title h3 {
+        font-size: 1.2rem;
+    }
 }
 
 .store-subtitle {
     color: #8b3a3a;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     background: #fce8e8;
-    padding: 5px 15px;
+    padding: 4px 12px;
     border-radius: 50px;
     display: inline-block;
 }
 
+@media (max-width: 480px) {
+    .store-subtitle {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+}
+
 /* Store Body */
 .store-body {
-    padding: 20px;
+    padding: 15px;
+}
+
+@media (max-width: 480px) {
+    .store-body {
+        padding: 12px;
+    }
 }
 
 .store-description {
     color: #666;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
     text-align: center;
+}
+
+@media (max-width: 480px) {
+    .store-description {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+        line-height: 1.4;
+        /* إخفاء جزء من النص في الجوال */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 .store-categories h5 {
     color: #571c24;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-align: center;
+}
+
+@media (max-width: 480px) {
+    .store-categories h5 {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
 }
 
 .categories-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
 }
 
 .tag {
     background: #f5f5f5;
     color: #571c24;
-    padding: 6px 15px;
+    padding: 5px 12px;
     border-radius: 50px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
     transition: all 0.3s ease;
     border: 1px solid rgba(87, 28, 36, 0.1);
+}
+
+@media (max-width: 480px) {
+    .tag {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
 }
 
 .store-card:hover .tag {
@@ -249,34 +294,52 @@
 
 /* Store Footer */
 .store-footer {
-    padding: 0 20px 25px;
+    padding: 0 15px 20px;
+}
+
+@media (max-width: 480px) {
+    .store-footer {
+        padding: 0 12px 15px;
+    }
 }
 
 .btn-view {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     background: linear-gradient(135deg, #571c24, #8b3a3a);
     color: white;
-    border-radius: 50px;
+    border-radius: 40px;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
 }
 
+@media (max-width: 480px) {
+    .btn-view {
+        padding: 10px;
+        font-size: 0.8rem;
+        gap: 5px;
+    }
+    
+    .btn-view i {
+        font-size: 0.8rem;
+    }
+}
+
 .btn-view i {
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: transform 0.3s ease;
 }
 
 .store-card:hover .btn-view {
     background: linear-gradient(135deg, #8b3a3a, #571c24);
-    box-shadow: 0 10px 20px rgba(87, 28, 36, 0.2);
+    box-shadow: 0 8px 15px rgba(87, 28, 36, 0.2);
 }
 
 .store-card:hover .btn-view i:last-child {
@@ -339,7 +402,7 @@
     transform: scale(1.1);
 }
 
-/* Responsive */
+/* Responsive للعناصر الأخرى */
 @media (max-width: 768px) {
     .header-title {
         font-size: 2.2rem;
@@ -352,15 +415,6 @@
     
     .section-title {
         font-size: 1.8rem;
-    }
-    
-    .store-header img {
-        width: 90px;
-        height: 90px;
-    }
-    
-    .store-title h3 {
-        font-size: 1.5rem;
     }
     
     .cta-card {
@@ -390,20 +444,6 @@
     
     .header-title {
         font-size: 1.8rem;
-    }
-    
-    .store-header img {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .store-title h3 {
-        font-size: 1.3rem;
-    }
-    
-    .tag {
-        padding: 4px 12px;
-        font-size: 0.8rem;
     }
 }
 

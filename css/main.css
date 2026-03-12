@@ -132,11 +132,21 @@ p {
 .navbar-nav {
     gap: 1rem;
 }
-
+.navbar {
+    background-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    padding: 0.8rem 0;  /* تقليل الـ padding */
+    transition: var(--transition-medium);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+}
 .nav-link {
     color: var(--light-color) !important;
     font-weight: 500;
-    padding: 5.5rem 1rem !important;
+    padding: 1rem 1.5rem !important;  /* تم التعديل هنا */
     border-radius: var(--border-radius-sm);
     transition: var(--transition-fast);
     position: relative;
