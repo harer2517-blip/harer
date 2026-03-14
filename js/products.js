@@ -327,7 +327,7 @@ function displayProducts(products) {
     animateProducts();
 }
 
-// دالة فتح ديالوغ تفاصيل المنتج
+// دالة فتح ديالوغ الصور فقط - بدون أي تفاصيل أخرى
 window.openProductDialog = function(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) {
@@ -335,126 +335,80 @@ window.openProductDialog = function(productId) {
         return;
     }
     
-    console.log('فتح المنتج:', product); // للتأكد من البيانات
-    console.log('صور المنتج:', product.images); // للتأكد من الصور
+    console.log('فتح المنتج:', product);
+    console.log('صور المنتج:', product.images);
     
-    // تجهيز الصور - استخدام مصفوفة images مباشرة
+    // تجهيز الصور
     let images = product.images && product.images.length > 0 ? product.images : [product.imageUrl];
+    let currentImageIndex = 0;
     
-    console.log('الصور المعروضة:', images); // للتأكد من الصور
-    
-    // حساب السعر بعد الخصم
-    const finalPrice = product.discount > 0 
-        ? (product.price * (1 - product.discount / 100)).toFixed(2)
-        : product.price.toFixed(2);
-    
-    // تحديد لون المتجر
-    const storeColor = product.store === "متجر التقى" ? "info" : "warning";
-    const storeIcon = product.store === "متجر التقى" ? "fa-mosque" : "fa-store";
-    
-    // إنشاء الصور المصغرة
-    let thumbnailsHtml = '';
-    if (images.length > 1) {
-        thumbnailsHtml = `
-            <div class="d-flex gap-2 overflow-auto pb-2 mt-3" style="scrollbar-width: thin; padding: 5px; justify-content: center;">
-                ${images.map((img, idx) => `
-                    <div class="thumbnail-item ${idx === 0 ? 'active' : ''}" 
-                         onclick="changeProductImage(this, '${img}')"
-                         style="cursor: pointer; border: 3px solid ${idx === 0 ? '#571c24' : 'transparent'}; border-radius: 10px; overflow: hidden; min-width: 70px; height: 70px; transition: all 0.3s;">
-                        <img src="${img}" 
-                             style="width: 100%; height: 100%; object-fit: cover;"
-                             onerror="this.src='https://via.placeholder.com/70x70?text=خطأ'">
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    }
-    
-    // إنشاء الديالوغ
+    // إنشاء الديالوغ - فقط الصور مع خلفية فاتحة
     const dialogHTML = `
-        <div id="productDialog" class="modal fade show" style="display: block; background: rgba(0,0,0,0.8); z-index: 10000;" onclick="closeProductDialog(event)">
-            <div class="modal-dialog modal-lg modal-dialog-centered" onclick="event.stopPropagation()">
-                <div class="modal-content" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <div id="productDialog" class="modal fade show" style="display: block; background: rgba(255, 255, 255, 0.95); z-index: 10000;" onclick="closeProductDialog(event)">
+            <div class="modal-dialog modal-xl modal-dialog-centered" style="max-width: 90%; margin: 0 auto;" onclick="event.stopPropagation()">
+                <div class="modal-content" style="border-radius: 25px; overflow: hidden; border: none; box-shadow: 0 25px 50px rgba(0,0,0,0.2); background: white;">
                     
-                    <!-- رأس الديالوغ -->
-                    <div class="modal-header" style="background: #571c24; color: white; border: none; padding: 15px 20px;">
-                        <h5 class="modal-title">
-                            <i class="fas fa-box-open ms-2"></i>
-                            ${product.name}
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" onclick="closeProductDialog()" aria-label="Close"></button>
+                    <!-- رأس بسيط جداً - زر إغلاق فقط -->
+                    <div class="modal-header" style="border: none; padding: 15px 20px; background: white;">
+                        <div style="flex: 1;"></div>
+                        <button type="button" class="btn-close" onclick="closeProductDialog()" aria-label="Close" style="background-color: #f0f0f0; opacity: 0.8; width: 40px; height: 40px; border-radius: 50%;"></button>
                     </div>
                     
-                    <!-- جسم الديالوغ -->
-                    <div class="modal-body p-4">
-                        <div class="row">
-                            <!-- قسم الصور -->
-                            <div class="col-md-6 mb-4 mb-md-0">
-                                <div class="product-gallery">
-                                    <!-- الصورة الرئيسية -->
-                                    <div class="main-image-container mb-3" style="background: #f8f9fa; border-radius: 15px; padding: 15px; text-align: center;">
-                                        <img id="mainProductImage" src="${images[0]}" 
-                                             class="img-fluid" 
-                                             alt="${product.name}"
-                                             style="max-height: 300px; object-fit: contain; border-radius: 10px;"
-                                             onerror="this.src='https://via.placeholder.com/400x300?text=حرير'">
-                                    </div>
-                                    
-                                    <!-- الصور المصغرة -->
-                                    ${thumbnailsHtml}
+                    <!-- جسم الديالوغ - فقط الصور -->
+                    <div class="modal-body p-4" style="padding-top: 0 !important;">
+                        <div class="text-center mb-3">
+                            <h4 style="color: #571c24; font-weight: 300; margin: 0;">
+                                <i class="fas fa-images ms-2" style="color: #571c24;"></i>
+                                ${product.name}
+                            </h4>
+                        </div>
+                        
+                        <!-- معرض الصور فقط -->
+                        <div class="product-gallery">
+                            <!-- الصورة الرئيسية مع أسهم التنقل -->
+                            <div class="main-image-container position-relative" style="background: #f8f9fa; border-radius: 20px; padding: 20px; text-align: center; min-height: 500px; display: flex; align-items: center; justify-content: center; border: 1px solid #eee;">
+                                
+                                <!-- السهم الأيسر -->
+                                <button class="nav-arrow prev-arrow" onclick="changeImageByArrow(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ddd; color: #571c24; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; transition: all 0.3s;">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                
+                                <!-- الصورة الرئيسية -->
+                                <img id="mainProductImage" src="${images[0]}" 
+                                     class="img-fluid" 
+                                     alt="${product.name}"
+                                     style="max-height: 500px; max-width: 100%; object-fit: contain; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"
+                                     onerror="this.src='https://via.placeholder.com/800x600?text=حرير'">
+                                
+                                <!-- السهم الأيمن -->
+                                <button class="nav-arrow next-arrow" onclick="changeImageByArrow(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ddd; color: #571c24; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; transition: all 0.3s;">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                
+                                <!-- عداد الصور -->
+                                <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: white; color: #571c24; padding: 8px 20px; border-radius: 50px; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee;">
+                                    <span id="currentImageCounter">1</span> / ${images.length}
                                 </div>
                             </div>
                             
-                            <!-- معلومات المنتج -->
-                            <div class="col-md-6">
-                                <!-- التصنيف والمتجر -->
-                                <div class="d-flex gap-2 mb-3 flex-wrap">
-                                    <span class="badge bg-${storeColor} p-2">
-                                        <i class="fas ${storeIcon} ms-1"></i> ${product.store || 'غير محدد'}
-                                    </span>
-                                    <span class="badge bg-secondary p-2">
-                                        <i class="fas fa-tag ms-1"></i> ${product.category || 'غير مصنف'}
-                                    </span>
-                                    ${product.isNew ? '<span class="badge bg-success p-2"><i class="fas fa-star ms-1"></i> جديد</span>' : ''}
-                                </div>
-                                
-                                <!-- السعر -->
-                                <div class="mb-4 p-3" style="background: #f8f9fa; border-radius: 12px;">
-                                    <div class="d-flex align-items-baseline gap-3 flex-wrap">
-                                        <span class="display-6 fw-bold" style="color: #571c24;">${finalPrice} ل.س</span>
-                                        ${product.discount > 0 ? `
-                                            <span class="text-muted text-decoration-line-through">${product.price.toFixed(2)} ل.س</span>
-                                            <span class="badge bg-danger">خصم ${product.discount}%</span>
-                                        ` : ''}
+                            <!-- الصور المصغرة للتنقل السريع -->
+                            <div class="thumbnails-wrapper" style="display: flex; gap: 12px; overflow-x: auto; padding: 20px 5px; margin-top: 15px; justify-content: center; background: white; border-radius: 15px;">
+                                ${images.map((img, idx) => `
+                                    <div class="thumbnail-item ${idx === 0 ? 'active' : ''}" 
+                                         onclick="goToImageByIndex(${idx})"
+                                         style="cursor: pointer; border: 3px solid ${idx === 0 ? '#571c24' : '#eee'}; border-radius: 12px; overflow: hidden; min-width: 80px; height: 80px; transition: all 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                        <img src="${img}" 
+                                             style="width: 100%; height: 100%; object-fit: cover;"
+                                             onerror="this.src='https://via.placeholder.com/80x80?text=خطأ'">
                                     </div>
-                                </div>
-                                
-                               
-                                <!-- الوصف -->
-                                <div class="mb-4">
-                                    <h6 style="color: #571c24; font-weight: bold; margin-bottom: 10px;">
-                                        <i class="fas fa-align-left ms-2"></i>الوصف:
-                                    </h6>
-                                    <p class="text-muted" style="line-height: 1.8; background: #f8f9fa; padding: 15px; border-radius: 10px;">
-                                        ${product.description || 'لا يوجد وصف لهذا المنتج'}
-                                    </p>
-                                </div>
-                                
-                                <!-- كود المنتج إن وجد -->
-                                ${product.code ? `
-                                    <div class="mb-4">
-                                        <small class="text-muted">
-                                            <i class="fas fa-barcode ms-1"></i> كود المنتج: ${product.code}
-                                        </small>
-                                    </div>
-                                ` : ''}
+                                `).join('')}
                             </div>
                         </div>
                     </div>
                     
-                    <!-- أزرار الديالوغ -->
-                    <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #dee2e6;">
-                        <button type="button" class="btn btn-secondary" onclick="closeProductDialog()">
+                    <!-- فوتر بسيط جداً - زر إغلاق إضافي -->
+                    <div class="modal-footer" style="border: none; padding: 15px 20px; background: white; justify-content: center;">
+                        <button type="button" class="btn" onclick="closeProductDialog()" style="background: #f0f0f0; color: #571c24; border-radius: 50px; padding: 10px 30px; border: 1px solid #ddd;">
                             <i class="fas fa-times ms-2"></i>إغلاق
                         </button>
                     </div>
@@ -472,10 +426,116 @@ window.openProductDialog = function(productId) {
     // إضافة الديالوغ إلى الصفحة
     document.body.insertAdjacentHTML('beforeend', dialogHTML);
     
+    // إضافة المتغيرات والدوال للتنقل بين الصور
+    window.productImages = images;
+    window.currentImageIndex = 0;
+    
+    // دالة تغيير الصورة بالأسهم
+    window.changeImageByArrow = function(direction) {
+        const newIndex = window.currentImageIndex + direction;
+        if (newIndex >= 0 && newIndex < window.productImages.length) {
+            window.currentImageIndex = newIndex;
+            updateMainImage();
+        }
+    };
+    
+    // دالة الذهاب لصورة محددة
+    window.goToImageByIndex = function(index) {
+        if (index >= 0 && index < window.productImages.length) {
+            window.currentImageIndex = index;
+            updateMainImage();
+        }
+    };
+    
+    // دالة تحديث الصورة الرئيسية
+    function updateMainImage() {
+        const mainImage = document.getElementById('mainProductImage');
+        const counter = document.getElementById('currentImageCounter');
+        const thumbnails = document.querySelectorAll('.thumbnail-item');
+        
+        if (mainImage) {
+            mainImage.src = window.productImages[window.currentImageIndex];
+        }
+        
+        if (counter) {
+            counter.textContent = window.currentImageIndex + 1;
+        }
+        
+        // تحديث حالة الصور المصغرة
+        thumbnails.forEach((thumb, idx) => {
+            if (idx === window.currentImageIndex) {
+                thumb.style.borderColor = '#571c24';
+                thumb.style.transform = 'scale(1.05)';
+            } else {
+                thumb.style.borderColor = '#eee';
+                thumb.style.transform = 'scale(1)';
+            }
+        });
+    }
+    
+    // إضافة تأثيرات hover للأزرار
+    const style = document.createElement('style');
+    style.textContent = `
+        .nav-arrow:hover {
+            background: #571c24 !important;
+            color: white !important;
+            border-color: #571c24 !important;
+            transform: translateY(-50%) scale(1.1) !important;
+        }
+        
+        .thumbnail-item:hover {
+            transform: scale(1.1) !important;
+            border-color: #571c24 !important;
+            box-shadow: 0 8px 15px rgba(87, 28, 36, 0.2) !important;
+        }
+        
+        .modal-content {
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
     // منع التمرير في الخلفية
     document.body.style.overflow = 'hidden';
+    
+    // إضافة التنقل باستخدام لوحة المفاتيح
+    function handleKeyPress(e) {
+        if (e.key === 'Escape') {
+            closeProductDialog();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            window.changeImageByArrow(-1);
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            window.changeImageByArrow(1);
+        }
+    }
+    
+    document.addEventListener('keydown', handleKeyPress);
+    
+    // تنظيف الأحداث عند الإغلاق
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (!document.getElementById('productDialog')) {
+                document.removeEventListener('keydown', handleKeyPress);
+                observer.disconnect();
+            }
+        });
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
 };
-
 // دالة تغيير الصورة الرئيسية
 window.changeProductImage = function(thumbnail, imageUrl) {
     const mainImage = document.getElementById('mainProductImage');
