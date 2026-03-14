@@ -290,13 +290,14 @@ function displayProducts(products) {
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-primary mb-2">${product.name}</h5>
                         
+                        <!--
                         <p class="card-text text-muted mb-3 flex-grow-1">
                             ${product.description ? product.description.substring(0, 80) : ''}${product.description && product.description.length > 80 ? '...' : ''}
                         </p>
-                        
+                        -->
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div>
+                               <!-- <div>
                                     <h4 class="text-danger mb-0">${finalPrice} ل.س</h4>
                                     ${product.discount > 0 ? `
                                         <small class="text-muted text-decoration-line-through">
@@ -304,6 +305,7 @@ function displayProducts(products) {
                                         </small>
                                     ` : ''}
                                 </div>
+                                -->
                                 
                                 <span class="text-muted">
                                     <i class="fas fa-box"></i> ${product.stock || 0}
