@@ -465,4 +465,21 @@
 
 .store-card:nth-child(2) {
     animation-delay: 0.1s;
+}/* تنسيق روابط الاتصال */
+.contact-link {
+    color: inherit !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.contact-link:hover {
+    color: #571c24 !important;
+    transform: translateY(-2px);
+}
+
+/* تنسيق خاص لرقم الهاتف */
+.contact-item .contact-link[href*="wa.me"] {
+    direction: ltr;
+    unicode-bidi: embed;
 }
